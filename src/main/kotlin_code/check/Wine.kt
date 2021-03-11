@@ -1,6 +1,6 @@
-package kotlin.check
+package kotlin_code.check
 
-class Soda : Payable {
+class Wine : Payable {
     override fun getPrice() {
         TODO("Not yet implemented")
     }

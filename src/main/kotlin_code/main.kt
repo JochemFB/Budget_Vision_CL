@@ -1,3 +1,4 @@
+import kotlin_code.check.CheckHandler
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.util.*
@@ -22,7 +23,7 @@ fun main(args: Array<String>) {
         if (option == 1) {
             println("Button 1 pressed");
         } else if (option == 2) {
-            println("Button 2 pressed");
+            CheckHandler().showCheckMenu()
         } else if (option == 3) {
             println("Button 3 pressed");
         } else if (option == 4) {
@@ -31,7 +32,5 @@ fun main(args: Array<String>) {
             println("This is not an option.")
         }
     }
-
-
 
 }
