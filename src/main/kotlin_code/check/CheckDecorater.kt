@@ -1,13 +1,12 @@
 package kotlin_code.check
 
-abstract class CheckDecorater : Payable {
+abstract class CheckDecorater(val tempPayable: Payable) : Payable {
 
-
-    override fun getPrice() {
-        TODO("Not yet implemented")
+    override fun getCost(): Double {
+        return tempPayable.getCost()
     }
 
-    override fun getDescription() {
-        TODO("Not yet implemented")
+    override fun getDescription(): String {
+        return tempPayable.getDescription()
     }
 }

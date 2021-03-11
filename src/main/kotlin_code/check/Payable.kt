@@ -2,7 +2,7 @@ package kotlin_code.check
 
 interface Payable {
 
-    fun getPrice()
+    fun getCost(): Double
 
-    fun getDescription()
+    fun getDescription(): String
 }

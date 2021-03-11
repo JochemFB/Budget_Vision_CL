@@ -15,12 +15,14 @@ class Check(title : String) : Payable {
 
     }
 
-    override fun getPrice() {
-        TODO("Not yet implemented")
+
+
+    override fun getCost(): Double {
+        return 0.00
     }
 
-    override fun getDescription() {
-        TODO("Not yet implemented")
+    override fun getDescription(): String {
+        return "This is the check:"
     }
 
 }
