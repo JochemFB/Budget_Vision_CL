@@ -1,6 +1,6 @@
-package kotlin.check
+package kotlin_code.check
 
-class Check(title : String) : Payable{
+class Check(title : String) : Payable {
 
 
     var checkTitle : String = title

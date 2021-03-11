@@ -1,4 +1,4 @@
-package kotlin.check
+package kotlin_code.check
 
 class CheckHandler {
 
