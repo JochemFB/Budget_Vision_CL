@@ -1,6 +1,6 @@
 package kotlin_code.check
 
-class Soda(beer : Payable) : CheckDecorater(beer) {
+class Soda(soda : Payable) : CheckDecorator(soda) {
 
     init {
         println("A can of soda is added to the check.")

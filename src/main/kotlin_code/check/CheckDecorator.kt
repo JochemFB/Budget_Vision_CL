@@ -1,6 +1,6 @@
 package kotlin_code.check
 
-abstract class CheckDecorater(val tempPayable: Payable) : Payable {
+abstract class CheckDecorator(val tempPayable: Payable) : Payable {
 
     override fun getCost(): Double {
         return tempPayable.getCost()
