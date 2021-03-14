@@ -1,3 +1,4 @@
+import kotlin_code.transaction.TransactionHandler
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.util.*
@@ -21,6 +22,7 @@ fun main(args: Array<String>) {
 
         if (option == 1) {
             println("Button 1 pressed");
+            TransactionHandler()
         } else if (option == 2) {
             println("Button 2 pressed");
         } else if (option == 3) {

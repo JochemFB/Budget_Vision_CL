@@ -1,8 +1,6 @@
-package kotlin.check
+package kotlin_code.check
 
-abstract class CheckDecorater : Payable {
-
-
+class Soda : Payable {
     override fun getPrice() {
         TODO("Not yet implemented")
     }
