@@ -9,11 +9,6 @@ var checkHandler = CheckHandler()
 
 fun main(args: Array<String>) {
 
-//    val basicPizza: Payable = Wine(Beer(Check("jochem")))
-//    println(basicPizza.getDescription())
-//    println(basicPizza.getCost())
-
-
     while (true) {
         println("Main Menu:");
         println("--------------");

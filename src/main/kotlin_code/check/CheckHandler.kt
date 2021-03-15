@@ -7,27 +7,19 @@ import kotlin.collections.ArrayList
 
 class CheckHandler {
 
-    var checkList = ArrayList<Check>()
+    var checkList = ArrayList<Payable>()
+    val scan = Scanner(System.`in`)
 
     fun showAllCheckOptions() {
 
         while (true) {
             this.showAllChecks()
             this.printCheckMenu()
-            val scan = Scanner(System.`in`)
             val option = scan.nextLine().trim().toInt()
 
             //Option 1: Create a new check
             if (option == 1) {
-                println("Enter the title of the check:")
-                val checkTitle = scan.nextLine().trim()
-
-                try {
-                    addCheck(checkTitle)
-                    println("Check with title $checkTitle is created.")
-                } catch (e: Exception) {
-                    println("Check was not created.")
-                }
+                createNewCheck()
             }
             //Option 2: Remove a check
             else if (option == 2) {
@@ -79,16 +71,17 @@ class CheckHandler {
                             println("What do you want to add to the check?")
                             printAddableItemsList()
                             val itemToAdd = scan.nextLine().trim().toInt()
-
                             addItemToCheck(itemToAdd, checkToEdit)
-
                         } else if (editOption == 2) {
+
+                            //TODO
 
                         } else {
                             println("This is not an option.")
                         }
 
                         //Remove item from check
+                        //TODO
 
                     }
                 }
@@ -113,26 +106,36 @@ class CheckHandler {
         }
     }
 
-
-    fun addCheck(title: String) {
-        checkList.add(Check(title))
+    private fun createNewCheck() {
+        try {
+            println("Enter the title of the check:")
+            val checkTitle = scan.nextLine().trim()
+            this.checkList.add(Check(checkTitle))
+            println("Check with title $checkTitle is created.")
+        } catch (e: Exception) {
+            println("Check was not created.")
+        }
     }
+
 
     fun addItemToCheck(itemNumber: Int, checkNumber: Int) {
 
-        val index = checkNumber-1
-        var check = checkList[index]
+        val index = checkNumber - 1
+        val check = checkList[index]
+
+        var newCheck: Payable? = null
 
         when (itemNumber) {
-            1 -> Wine(check)
-            2 -> Beer(check)
-            3 -> Soda(check)
+            1 -> newCheck = Wine(check)
+            2 -> newCheck = Beer(check)
+            3 -> newCheck = Soda(check)
             else -> {
                 print("This is not an option.")
             }
         }
-        checkList.set(index, check)
-
+        if (newCheck != null) {
+            checkList[index] = newCheck
+        }
     }
 
     fun printAddableItemsList() {
@@ -144,11 +147,11 @@ class CheckHandler {
     fun removeCheck(checkIndex: Int) {
 
         val indexToRemove = checkIndex - 1
-        val nameOfRemovedCheck = checkList[indexToRemove].checkTitle
-        checkList.removeAt(indexToRemove)
-        println("The check with number $checkIndex and name $nameOfRemovedCheck was removed.")
-
-
+        val nameOfRemovedCheck = checkList[indexToRemove]
+        if (nameOfRemovedCheck is Check) {
+            checkList.removeAt(indexToRemove)
+            println("The check with number $checkIndex and name ${nameOfRemovedCheck.checkTitle} was removed.")
+        }
     }
 
     fun showAllChecks() {
@@ -159,7 +162,13 @@ class CheckHandler {
             println("List of all current checks.")
             var counter = 1
             checkList.forEach {
-                println(counter.toString() + ". " + it.checkTitle)
+                var checkLine: String = ""
+                checkLine += "$counter. "
+
+                if (it is Check) {
+                    checkLine += it.checkTitle
+                }
+                println(checkLine)
                 counter++
             }
             println("\n")
@@ -179,9 +188,9 @@ class CheckHandler {
     /**
      * Betaal en verwijder de check en krijg een overzicht
      */
-    fun displayCheck(check: Check) {
+    fun displayCheck(check: Payable) {
         println("Overview of check")
-        println("${check.getDescription()}")
+        println(check.getDescription())
         println("Total: ${check.getCost()}")
     }
 

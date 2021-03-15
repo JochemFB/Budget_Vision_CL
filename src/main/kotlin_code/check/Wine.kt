@@ -11,6 +11,6 @@ class Wine(wine : Payable) : CheckDecorator(wine) {
     }
 
     override fun getDescription(): String {
-        return tempPayable.getDescription() + "Glass of expensive wine.\n"
+        return tempPayable.getDescription() + " - Glass of expensive wine.\n"
     }
 }

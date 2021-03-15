@@ -11,6 +11,6 @@ class Beer(beer : Payable) : CheckDecorator(beer) {
     }
 
     override fun getDescription(): String {
-        return tempPayable.getDescription() + "A plastic cup of cheap beer.\n"
+        return tempPayable.getDescription() + "- A plastic cup of cheap beer.\n"
     }
 }
