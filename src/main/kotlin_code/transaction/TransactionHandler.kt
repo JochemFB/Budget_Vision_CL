@@ -1,5 +1,6 @@
 package kotlin_code.transaction
 
+import java.math.RoundingMode
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
@@ -7,9 +8,6 @@ import java.util.*
 
 class TransactionHandler {
     /*
-    TODO: Amount afronden op 2 cijfers achter komma
-    TODO: dateTime formatteren bij weergave
-    TODO: listAllTransactions()
     TODO: Bij het intypen van quit of 0, ga terug naar main menu
      */
 
@@ -30,8 +28,8 @@ class TransactionHandler {
 
             //Option 1: Create new transaction
             if(option == 1) {
+                println("Datum en tijd (dd-MM-yyyy HH:mm):")
                 while(!valid) {
-                    println("Datum en tijd (dd-MM-yyyy HH:mm):")
                     valid = try {
                         transactionDateTime = LocalDateTime.parse(scan.nextLine().trim(), dateTimeFormatter)
                         true
@@ -50,10 +48,9 @@ class TransactionHandler {
 
                 try {
                     addTransaction(transactionDateTime, transactionAmount, transactionDescription)
+                    val addedId = transactionProxies.size
                     println("Transaction added:")
-                    println(transactionDateTime)
-                    println(transactionAmount)
-                    println(transactionDescription)
+                    readTransaction(addedId)
                 } catch (e: Exception) {
                     println("Transaction could not be added")
                 }

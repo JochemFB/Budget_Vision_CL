@@ -1,16 +1,18 @@
 package kotlin_code.transaction
 
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class Transaction(private val dateTime: LocalDateTime, private val amount: Double, private val description: String): GetTransactionInfo {
-    val sb = kotlin.text.StringBuilder()
+    private val sb = kotlin.text.StringBuilder()
+    private val dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")
 
     override fun getDateTime() {
-        println("Transaction dateTime: $dateTime")
+        println("Transaction dateTime: ${dateTime.format(dateTimeFormatter)}")
     }
 
     override fun getAmount() {
-        println("Transaction amount: $amount")
+        println("Transaction amount: ${String.format("%.2f", amount)}")
     }
 
     override fun getDescription() {
