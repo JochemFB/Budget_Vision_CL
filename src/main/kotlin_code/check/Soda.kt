@@ -13,4 +13,8 @@ class Soda(soda : Payable) : CheckDecorator(soda) {
     override fun getDescription(): String {
         return tempPayable.getDescription() + "- A can of sparkling soda.\n"
     }
+
+    override fun getTitle(): String {
+        return tempPayable.getTitle()
+    }
 }

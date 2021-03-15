@@ -23,79 +23,21 @@ class CheckHandler {
             }
             //Option 2: Remove a check
             else if (option == 2) {
-
                 if (checkList.size == 0) {
                     println("There are no checks to remove.")
                     continue
                 }
-
-                println("Which check do you want to remove?")
-                println("Press 0 to cancel removing...")
-
-                val checkToRemove = scan.nextLine().trim().toInt()
-                if (checkToRemove == 0) {
-                    println("No check was removed.")
-                } else if (checkToRemove > 0) {
-                    if (checkToRemove > checkList.size) {
-                        println("This check does not exist.")
-                    } else {
-                        removeCheck(checkToRemove)
-                    }
+                else {
+                    removeCheck()
                 }
             }
-            //Option 3: Edit a check
+            //Option 3: Add item to a check
             else if (option == 3) {
-                println("Which check do you want to edit?")
-                println("Enter the check number.")
-                println("Enter 0 to cancel...")
-
-                val checkToEdit = scan.nextLine().trim().toInt()
-
-                //Cancel editting
-                if (checkToEdit == 0) {
-                    println("No check was edited.")
-                }
-
-                //Does this number exist?
-                if (checkToEdit > 0) {
-                    if (checkToEdit > checkList.size) {
-                        println("This check does not exist.")
-                    } else {
-                        println("Options")
-                        println("Enter 1 to add an item to the check.")
-                        println("Enter 2 to remove an item from the check.")
-                        val editOption = scan.nextLine().trim().toInt()
-
-                        //Add item to check
-                        if (editOption == 1) {
-                            println("What do you want to add to the check?")
-                            printAddableItemsList()
-                            val itemToAdd = scan.nextLine().trim().toInt()
-                            addItemToCheck(itemToAdd, checkToEdit)
-                        } else if (editOption == 2) {
-
-                            //TODO
-
-                        } else {
-                            println("This is not an option.")
-                        }
-
-                        //Remove item from check
-                        //TODO
-
-                    }
-                }
-
-
-            } else if (option == 4) {
-                println("Which check do you want to display?")
-
-                val checkToDisplay = scan.nextLine().trim().toInt()
-                //TODO: Checks inbouwen voor checknumber
-                var index = checkToDisplay - 1
-                displayCheck(checkList[index])
-
-
+                addItemToCheck()
+            }
+            //Option 4: display a check
+            else if (option == 4) {
+                displayCheck()
             }
             //Option 5: Go back to the main menu
             else if (option == 5) {
@@ -118,23 +60,44 @@ class CheckHandler {
     }
 
 
-    fun addItemToCheck(itemNumber: Int, checkNumber: Int) {
+    fun addItemToCheck() {
 
-        val index = checkNumber - 1
-        val check = checkList[index]
+        println("Which check do you want to edit?")
+        println("Enter the check number.")
+        println("Enter 0 to cancel...")
 
-        var newCheck: Payable? = null
+        val checkToEdit = scan.nextLine().trim().toInt()
 
-        when (itemNumber) {
-            1 -> newCheck = Wine(check)
-            2 -> newCheck = Beer(check)
-            3 -> newCheck = Soda(check)
-            else -> {
-                print("This is not an option.")
-            }
+        //Cancel editting
+        if (checkToEdit == 0) {
+            println("No check was edited.")
         }
-        if (newCheck != null) {
-            checkList[index] = newCheck
+
+        //Does this number exist?
+        if (checkToEdit > 0) {
+            if (checkToEdit > checkList.size) {
+                println("This check does not exist.")
+            } else {
+                println("What do you want to add to the check?")
+                printAddableItemsList()
+                val itemNumber = scan.nextLine().trim().toInt()
+                val index = checkToEdit - 1
+                val check = checkList[index]
+
+                var newCheck: Payable? = null
+
+                when (itemNumber) {
+                    1 -> newCheck = Wine(check)
+                    2 -> newCheck = Beer(check)
+                    3 -> newCheck = Soda(check)
+                    else -> {
+                        print("This is not an option.")
+                    }
+                }
+                if (newCheck != null) {
+                    checkList[index] = newCheck
+                }
+            }
         }
     }
 
@@ -144,13 +107,24 @@ class CheckHandler {
         println("3. Soda")
     }
 
-    fun removeCheck(checkIndex: Int) {
+    fun removeCheck() {
+        println("Which check do you want to remove?")
+        println("Press 0 to cancel removing...")
 
-        val indexToRemove = checkIndex - 1
-        val nameOfRemovedCheck = checkList[indexToRemove]
-        if (nameOfRemovedCheck is Check) {
-            checkList.removeAt(indexToRemove)
-            println("The check with number $checkIndex and name ${nameOfRemovedCheck.checkTitle} was removed.")
+        val checkToRemove = scan.nextLine().trim().toInt()
+        if (checkToRemove == 0) {
+            println("No check was removed.")
+        } else if (checkToRemove > 0) {
+            if (checkToRemove > checkList.size) {
+                println("This check does not exist.")
+            } else {
+                val indexToRemove = checkToRemove - 1
+                val nameOfRemovedCheck = checkList[indexToRemove]
+                if (nameOfRemovedCheck is Check) {
+                    checkList.removeAt(indexToRemove)
+                    println("The check with number $checkToRemove and name ${nameOfRemovedCheck.checkTitle} was removed.")
+                }
+            }
         }
     }
 
@@ -162,13 +136,7 @@ class CheckHandler {
             println("List of all current checks.")
             var counter = 1
             checkList.forEach {
-                var checkLine: String = ""
-                checkLine += "$counter. "
-
-                if (it is Check) {
-                    checkLine += it.checkTitle
-                }
-                println(checkLine)
+                println("$counter. ${it.getTitle()}")
                 counter++
             }
             println("\n")
@@ -188,7 +156,15 @@ class CheckHandler {
     /**
      * Betaal en verwijder de check en krijg een overzicht
      */
-    fun displayCheck(check: Payable) {
+    fun displayCheck() {
+
+        println("Which check do you want to display?")
+
+        val checkToDisplay = scan.nextLine().trim().toInt()
+        //TODO: Checks inbouwen voor checknumber
+        var index = checkToDisplay - 1
+        val check = (checkList[index])
+
         println("Overview of check")
         println(check.getDescription())
         println("Total: ${check.getCost()}")
