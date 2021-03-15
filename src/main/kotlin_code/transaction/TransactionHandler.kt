@@ -7,8 +7,10 @@ import java.util.*
 
 class TransactionHandler {
     /*
-    Hier moet een ArrayList van TransactionProxies komen. Elke TransactionProxy heeft dan zijn eigen Transaction object.
-    In deze klasse komen dus ook de add/remove etc. functies voor de ArrayList.
+    TODO: Amount afronden op 2 cijfers achter komma
+    TODO: dateTime formatteren bij weergave
+    TODO: listAllTransactions()
+    TODO: Bij het intypen van quit of 0, ga terug naar main menu
      */
 
     private val transactionProxies = ArrayList<TransactionProxy>()
@@ -23,6 +25,8 @@ class TransactionHandler {
 
             val scan = Scanner(System.`in`)
             val option = scan.nextLine().trim().toInt()
+
+            valid = false
 
             //Option 1: Create new transaction
             if(option == 1) {
@@ -93,6 +97,15 @@ class TransactionHandler {
 
             //Option 4: Go back to the main menu
             else if (option == 4) {
+                for(i in transactionProxies.indices) {
+                    println("Transaction id: ${i + 1}")
+                    readTransaction(i+1)
+                    println(System.getProperty("line.separator"))
+                }
+            }
+
+            //Option 5: Go back to the main menu
+            else if (option == 5) {
                 break
             } else {
                 println("This is not an option.")
@@ -121,6 +134,7 @@ class TransactionHandler {
         println("1. Create new transaction")
         println("2. Remove transaction")
         println("3. Read transaction")
-        println("4. Go back")
+        println("4. List all transactions")
+        println("5. Go back")
     }
 }
