@@ -1,11 +1,21 @@
+
 package kotlin_code.check
 
-class Wine : Payable {
-    override fun getPrice() {
-        TODO("Not yet implemented")
+class Wine(wine : Payable) : CheckDecorator(wine) {
+
+    init {
+        println("A glass of wine is added to the check.")
     }
 
-    override fun getDescription() {
-        TODO("Not yet implemented")
+    override fun getCost(): Double {
+        return tempPayable.getCost() + 4.00
+    }
+
+    override fun getDescription(): String {
+        return tempPayable.getDescription() + " - Glass of expensive wine.\n"
+    }
+
+    override fun getTitle(): String {
+        return tempPayable.getTitle()
     }
 }
