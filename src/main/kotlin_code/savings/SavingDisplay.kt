@@ -1,11 +1,28 @@
 package kotlin_code.savings
 
-class SavingDisplay : Observer, Display {
-    override fun update() {
-        TODO("Not yet implemented")
+class SavingDisplay(var saving: Savings) : Observer, Display {
+
+    private var moneyBoxes : ArrayList<MoneyBox>;
+
+    init {
+        saving.registerObserver(this)
+        moneyBoxes = saving.getMoneyBoxes()
+    }
+
+    override fun update(amount: ArrayList<Observer>) {
+        this.moneyBoxes = saving.getMoneyBoxes()
     }
 
     override fun display() {
-        TODO("Not yet implemented")
+
+            if (saving.getMoneyBoxes().isEmpty()) {
+                println("There are no saving categories yet.")
+            } else {
+                var counter = 1
+                saving.getMoneyBoxes().forEach() {
+                    println("$counter. ${it.getCategory()}: €${it.getAmount()}")
+                    counter++
+                }
+            }
     }
 }

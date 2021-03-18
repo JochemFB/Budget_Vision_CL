@@ -2,9 +2,9 @@ package kotlin_code.savings
 
 interface Subject {
 
-    fun registerObserver()
+    fun registerObserver(observer: Observer)
 
-    fun removeObserver()
+    fun unregisterObserver(observer: Observer)
 
     fun notifyObserver()
 }

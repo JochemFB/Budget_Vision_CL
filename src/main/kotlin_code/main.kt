@@ -1,10 +1,13 @@
 import kotlin_code.check.CheckHandler
+import kotlin_code.savings.SavingHandler
+import kotlin_code.savings.Savings
 import kotlin_code.transaction.TransactionHandler
 import java.util.*
 
 fun main(args: Array<String>) {
 
     val checkHandler = CheckHandler()
+    val savings = SavingHandler()
 
     while (true) {
         printMenu()
@@ -20,7 +23,7 @@ fun main(args: Array<String>) {
                     checkHandler.showAllCheckOptions()
                 }
                 3 -> {
-                    println("Button 3 pressed")
+                    savings.showAllSavingsOptions()
                 }
                 4 -> {
                     println("Button 4 pressed")

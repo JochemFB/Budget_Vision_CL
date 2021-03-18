@@ -1,35 +1,50 @@
 package kotlin_code.savings
 
-class Savings(private val savingsCategory: String, private var amount: Double) : Subject{
+class Savings() : Subject {
 
+    var observers = ArrayList<Observer>()
+    private var moneyBoxes = ArrayList<MoneyBox>()
 
-    fun addMoney(money: Double) {
-        this.amount += money
+    fun createMoneyBox(category: String, amount: Double) {
+        moneyBoxes.add(MoneyBox(category, amount))
+        notifyObserver()
     }
 
-    fun takeMoney(money: Double){
-        this.amount -= money
+    fun addMoneyToMoneyBox(number: Int, amount: Double) {
+        try {
+            this.moneyBoxes[(number - 1)].addMoney(amount)
+            notifyObserver()
+        } catch (e: IndexOutOfBoundsException) {
+            println("This money box does not exist.")
+        }
     }
 
-    fun printCategory(){
-        println("Category: $savingsCategory")
+    fun takeMoneyFromMoneyBox(number: Int, amount: Double) {
+        try {
+            this.moneyBoxes[(number - 1)].takeMoney(amount)
+            notifyObserver()
+        } catch (e: IndexOutOfBoundsException) {
+            println("This money box does not exist.")
+        }
     }
 
-    fun getAmount() : Double{
-        return this.amount
+    fun getMoneyBoxes(): ArrayList<MoneyBox> {
+        return this.moneyBoxes
     }
 
-    override fun registerObserver() {
-        TODO("Not yet implemented")
+    override fun registerObserver(newObserver: Observer) {
+        observers.add(newObserver);
+
     }
 
-    override fun removeObserver() {
-        TODO("Not yet implemented")
+    override fun unregisterObserver(observer: Observer) {
+        val observerIndex = observers.indexOf(observer)
+        observers.removeAt(observerIndex)
     }
 
     override fun notifyObserver() {
-        TODO("Not yet implemented")
+        observers.forEach() {
+            it.update(observers)
+        }
     }
-
-
 }
