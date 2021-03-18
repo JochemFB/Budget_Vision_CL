@@ -12,6 +12,7 @@ class TransactionHandler {
     TODO: Check if the input for amount of valid (comma doesn't work as decimal. Dot does work as decimal)
     TODO: Als de gebruiker 0 invuld bij een van de 'add transaction' velden. Moet de gebruiker dan terug naar het main menu of naar het menu van de transactions?
     TODO: Transactions en spaarpotjes linken
+    TODO: date slashes or - and time optional
      */
 
     private val transactionProxies = ArrayList<TransactionProxy>()
@@ -20,7 +21,7 @@ class TransactionHandler {
     private var validDateTime = false
     private lateinit var transactionDateTime: LocalDateTime
 
-    init {
+    fun showAllTransactionOptions() {
         while(true) {
             printTransactionMenu()
 
@@ -125,7 +126,7 @@ class TransactionHandler {
                 }
             }
 
-            //Option 4: Go back to the main menu
+            //Option 4: Print all transactions
             else if (option == 4) {
                 for(i in transactionProxies.indices) {
                     println("Transaction id: ${i + 1}")
