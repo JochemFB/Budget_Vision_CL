@@ -1,53 +1,86 @@
 package kotlin_code.transaction
 
-import java.math.RoundingMode
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 import java.util.*
+import kotlin.math.round
 
 class TransactionHandler {
     /*
     TODO: Bij het intypen van quit of 0, ga terug naar main menu
+    TODO: Check if the input for amount of valid (comma doesn't work as decimal. Dot does work as decimal)
+    TODO: Als de gebruiker 0 invuld bij een van de 'add transaction' velden. Moet de gebruiker dan terug naar het main menu of naar het menu van de transactions?
+    TODO: Transactions en spaarpotjes linken
      */
 
     private val transactionProxies = ArrayList<TransactionProxy>()
     private val dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")
 
-    private var valid = false
+    private var validDateTime = false
     private lateinit var transactionDateTime: LocalDateTime
 
     init {
         while(true) {
-            printCheckMenu()
+            printTransactionMenu()
 
             val scan = Scanner(System.`in`)
             val option = scan.nextLine().trim().toInt()
 
-            valid = false
+            validDateTime = false
 
             //Option 1: Create new transaction
             if(option == 1) {
-                println("Datum en tijd (dd-MM-yyyy HH:mm):")
-                while(!valid) {
-                    valid = try {
-                        transactionDateTime = LocalDateTime.parse(scan.nextLine().trim(), dateTimeFormatter)
+                println("Date and time (dd-MM-yyyy HH:mm) (enter 0 to cancel):")
+                // Get user input
+                var dateInput = scan.nextLine().trim()
+                if(dateInput == "0") {
+                    // Break out of loop to return to main menu
+                    break
+                }
+                while(!validDateTime) {
+                    // Check if dateInput is in the correct format (dd-MM-yyyy HH:mm)
+                    validDateTime = try {
+                        transactionDateTime = LocalDateTime.parse(dateInput, dateTimeFormatter)
                         true
                     } catch (e: DateTimeParseException) {
-                        println("De ingevulde datum klopt niet. Probeer het opnieuw.")
+                        println("The date is incorrect. Please try again (enter 0 to cancel).")
+                        // Get user input
+                        dateInput = scan.nextLine().trim()
+                        if(dateInput == "0") {
+                            // Break out of loop to return to main menu
+                            break
+                        }
 
                         false
                     }
                 }
+                if(dateInput == "0") {
+                    // Break out of loop to return to main menu
+                    break
+                }
 
-                println("Amount:")
-                val transactionAmount = scan.nextLine().trim().toDouble()
+                println("Amount (enter 0 to cancel):")
+                // Get user input
+                var amountInput = scan.nextLine().trim()
+                if(amountInput == "0") {
+                    // Break out of loop to return to main menu
+                    break
+                }
+                var transactionAmount = round(amountInput.replace(',', '.').toDouble() * 100) / 100
 
-                println("Description:")
-                val transactionDescription = scan.nextLine().trim()
+                println("Description (enter 0 to cancel):")
+                // Get user input
+                var descriptionInput = scan.nextLine().trim()
+                if(descriptionInput == "0") {
+                    // Break out of loop to return to main menu
+                    break
+                }
 
                 try {
-                    addTransaction(transactionDateTime, transactionAmount, transactionDescription)
+                    // Add transactionProxy which includes a transaction
+                    addTransaction(transactionDateTime, transactionAmount, descriptionInput)
+                    // Save the ID of the latest inserted transactionProxy and print the latest transaction
                     val addedId = transactionProxies.size
                     println("Transaction added:")
                     readTransaction(addedId)
@@ -110,22 +143,39 @@ class TransactionHandler {
         }
     }
 
+    /**
+     * Add a transaction based on the inputs given by the user
+     * @param transactionDateTime A LocalDateTime defined by the user
+     * @param transactionAmount A transaction amount defined by the user
+     * @param transactionDescription A description amount defined by the user
+     */
     private fun addTransaction(transactionDateTime: LocalDateTime, transactionAmount: Double, transactionDescription: String) {
         transactionProxies.add(TransactionProxy(transactionDateTime, transactionAmount, transactionDescription))
     }
 
+    /**
+     * Remove a transaction based on id
+     * @param id Index of the transaction to remove
+     */
     private fun removeTransaction(id: Int) {
         val indexToRemove = id - 1
         transactionProxies.removeAt(indexToRemove)
         println("The transaction with id $id was removed.")
     }
 
+    /**
+     * Read a transaction based on id
+     * @param id Index of the transaction to read
+     */
     private fun readTransaction(id: Int) {
         val indexToRead = id - 1
         transactionProxies[indexToRead].toString()
     }
 
-    private fun printCheckMenu() {
+    /**
+     * Print the transaction sub-menu
+     */
+    private fun printTransactionMenu() {
         println("Options:")
         println("===============")
         println("1. Create new transaction")
