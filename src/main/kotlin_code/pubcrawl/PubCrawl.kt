@@ -1,22 +1,38 @@
 package kotlin_code.pubcrawl
 
-class PubCrawl:venue {
+import java.lang.StrictMath.floor
+import java.time.LocalDateTime
 
-    var venues = ArrayList<venue>()
+class PubCrawl() :Venue {
 
-    fun addVenue(venue: venue){
-        venues.add(venue)
+    override var reservationPeriod = "0"
+
+    var venues = ArrayList<Venue>()
+
+    fun addVenue(Venue: Venue){
+        venues.add(Venue)
     }
 
-    fun removeVenue(venue: venue){
-        venues.remove(venue)
+    fun removeVenue(Venue: Venue){
+        venues.remove(Venue)
     }
 
-    fun getvenues(): ArrayList<venue>{
+    fun getvenues(): ArrayList<Venue>{
         return venues
     }
 
-    override fun makereservations(StartTime: Int) {
-        TODO("Not yet implemented")
+    override fun makereservations(StartTime: LocalDateTime) {
+        var totalTime = 0
+        var minutes = 0
+        for (venue in venues){
+            venue.makereservations(StartTime)
+            // HH:mm
+            val time = venue.reservationPeriod.split(":")
+            minutes = time[0].toInt() * 60 + time[1].toInt()
+            StartTime.plusMinutes(minutes.toLong())
+            totalTime += minutes
+        }
+        val Hours = floor((minutes / 60).toDouble())
+        reservationPeriod = Hours.toString() + ":" + (minutes - Hours).toString()
     }
 }

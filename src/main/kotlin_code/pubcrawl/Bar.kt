@@ -1,8 +1,10 @@
 package kotlin_code.pubcrawl
 
-class Bar(reservationPeriod: Int): venue {
+import java.time.LocalDateTime
 
-    override fun makereservations(StartTime: Int) {
+class Bar(override var reservationPeriod: String): Venue {
+
+    override fun makereservations(StartTime: LocalDateTime) {
         TODO("Not yet implemented")
     }
 }
