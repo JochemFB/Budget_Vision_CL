@@ -5,7 +5,11 @@ import java.lang.Exception
 import java.util.*
 import kotlin.math.round
 
-class SavingHandler(var savings: Savings = Savings(), var scan: Scanner = Scanner(System.`in`), val savingDisplay: SavingDisplay = SavingDisplay(savings)) {
+class SavingHandler(
+    var savings: Savings = Savings(),
+    var scan: Scanner = Scanner(System.`in`),
+    val savingDisplay: SavingDisplay = SavingDisplay(savings)
+) {
 
     fun showAllSavingsOptions() {
         while (true) {
@@ -14,35 +18,19 @@ class SavingHandler(var savings: Savings = Savings(), var scan: Scanner = Scanne
 
             //Option 1: Show saving categories
             if (option == 1) {
-                savingDisplay.display()
-                println("Press enter to return.")
-                while (true) {
-                    if (scan.nextLine() != null) break
-                }
+                this.showCategories()
             }
             //Option 2: Add saving category
             else if (option == 2) {
-                try {
-                    println("Enter the name of the category:")
-                    val categoryName = scan.nextLine().trim()
-
-                    println("Enter amount you want to add:")
-                    val input = scan.nextLine().trim()
-                    val startAmount = round(input.replace(',','.').toDouble() * 100) / 100
-
-                    savings.createMoneyBox(categoryName,startAmount)
-                    println("Saving category with name $categoryName is created.")
-                } catch (e: Exception) {
-                    println("Category was not created.")
-                }
+                this.addCategory()
             }
             //Option 3: Add money
             else if (option == 3) {
-
+                this.addMoney()
             }
             //Option 4: Withdraw money
             else if (option == 4) {
-
+                this.withdrawMoney()
             }
             //Option 5: Go back to the main menu
             else if (option == 5) {
@@ -52,6 +40,101 @@ class SavingHandler(var savings: Savings = Savings(), var scan: Scanner = Scanne
             }
         }
     }
+
+    private fun showCategories() {
+        savingDisplay.display()
+        println("Press enter to return.")
+        while (true) {
+            if (scan.nextLine() != null) break
+        }
+    }
+
+    private fun addCategory() {
+        try {
+            println("Enter the name of the category:")
+            val categoryName = scan.nextLine().trim()
+
+            println("Enter amount you want to add:")
+            val input = scan.nextLine().trim()
+            val startAmount = round(input.replace(',', '.').toDouble() * 100) / 100
+
+            savings.createMoneyBox(categoryName, startAmount)
+            println("Saving category with name $categoryName is created.")
+        } catch (e: Exception) {
+            println("Category was not created.")
+        }
+    }
+
+    private fun addMoney() {
+        if (!savingDisplay.hasNoMoneyBoxes()) {
+
+            try {
+                println("To which box do you want to add money? press 0 to cancel")
+                savingDisplay.display()
+                val categoryNumber = scan.nextLine().trim().toInt()
+                if (categoryNumber == 0) {
+                    return
+                }
+                if(savings.getMoneyBoxes().size < categoryNumber || categoryNumber < 0){
+                    println("This moneybox does not exist. Operation cancelled.")
+                    return
+                }
+
+                println("Enter the amount or press 0 te cancel")
+                val amountInput = scan.nextLine().trim()
+                if (amountInput == "0") {
+                    return
+                }
+                val transactionAmount = round(amountInput.replace(',', '.').toDouble() * 100) / 100
+
+                savings.addMoneyToMoneyBox(categoryNumber, transactionAmount)
+                println("€$transactionAmount has been added to the box.")
+
+            } catch (e: Exception) {
+                println("Something went wrong. Returning to menu...")
+                return
+            }
+        }
+        else{
+            println("There are no boxes.")
+        }
+    }
+
+    private fun withdrawMoney() {
+        if (!savingDisplay.hasNoMoneyBoxes()) {
+
+            try {
+                println("From which box do you want to withdraw money? press 0 to cancel")
+                savingDisplay.display()
+                val categoryNumber = scan.nextLine().trim().toInt()
+                if (categoryNumber == 0) {
+                    return
+                }
+                if(savings.getMoneyBoxes().size < categoryNumber || categoryNumber < 0){
+                    println("This moneybox does not exist. Operation cancelled.")
+                    return
+                }
+
+                println("Enter the amount or press 0 te cancel")
+                val amountInput = scan.nextLine().trim()
+                if (amountInput == "0") {
+                    return
+                }
+                val transactionAmount = round(amountInput.replace(',', '.').toDouble() * 100) / 100
+
+                savings.takeMoneyFromMoneyBox(categoryNumber, transactionAmount)
+                println("€$transactionAmount has been withdrawn from the box.")
+
+            } catch (e: Exception) {
+                println("Something went wrong. Returning to menu...")
+                return
+            }
+        }
+        else{
+            println("There are no boxes.")
+        }
+    }
+
 
     fun printSavingsMenu() {
         println("Options:")

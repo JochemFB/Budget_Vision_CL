@@ -9,6 +9,10 @@ class SavingDisplay(var saving: Savings) : Observer, Display {
         moneyBoxes = saving.getMoneyBoxes()
     }
 
+    fun hasNoMoneyBoxes() : Boolean{
+        return this.moneyBoxes.isEmpty()
+    }
+
     override fun update(amount: ArrayList<Observer>) {
         this.moneyBoxes = saving.getMoneyBoxes()
     }

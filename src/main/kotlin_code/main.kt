@@ -6,6 +6,7 @@ import java.util.*
 
 fun main(args: Array<String>) {
 
+    val transaction = TransactionHandler()
     val checkHandler = CheckHandler()
     val savings = SavingHandler()
 
@@ -17,7 +18,7 @@ fun main(args: Array<String>) {
 
             when (scan.nextLine().trim().toInt()) {
                 1 -> {
-                    TransactionHandler()
+                    transaction.showAllTransactionOptions()
                 }
                 2 -> {
                     checkHandler.showAllCheckOptions()
