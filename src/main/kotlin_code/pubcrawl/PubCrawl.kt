@@ -3,7 +3,7 @@ package kotlin_code.pubcrawl
 import java.lang.StrictMath.floor
 import java.time.LocalDateTime
 
-class PubCrawl() :Venue {
+class PubCrawl(override val name: String, val pubcrawlStartTime: LocalDateTime) :Venue {
 
     override var reservationPeriod = "0"
 
@@ -22,6 +22,7 @@ class PubCrawl() :Venue {
     }
 
     override fun makereservations(StartTime: LocalDateTime) {
+        //TODO: werkent maken
         var totalTime = 0
         var minutes = 0
         for (venue in venues){
