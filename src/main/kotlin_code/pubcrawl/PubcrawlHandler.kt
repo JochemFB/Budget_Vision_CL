@@ -74,7 +74,7 @@ class PubcrawlHandler {
 
             }
             //Option 5: Go back to the main menu
-            else if (option == 5) {
+            else if (option == 4) {
                 break
             } else {
                 println("This is not an option.")
@@ -88,6 +88,7 @@ class PubcrawlHandler {
         println("1. Show all pubcrawls");
         println("2. Make new pubcrawl");
         println("3. edit venues of existing pubcrawl and make reservations")
+        println("4. go back to main menu")
         println("--------------");
         println("Enter your choice:");
     }
@@ -164,6 +165,8 @@ class PubcrawlHandler {
 
     fun removeVenue(pubCrawl: PubCrawl){
         showPubcrawlVenues(pubCrawl)
+
+        println("enter the name of the venue you want to remove")
         val venueName = scan.nextLine()
 
         pubCrawl.removeVenue(getVenue(venueName, pubCrawl))
