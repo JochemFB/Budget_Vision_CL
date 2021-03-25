@@ -5,6 +5,11 @@ class Savings() : Subject {
     var observers = ArrayList<Observer>()
     private var moneyBoxes = ArrayList<MoneyBox>()
 
+    companion object{
+        val instance = Savings()
+    }
+
+
     fun createMoneyBox(category: String, amount: Double) {
         moneyBoxes.add(MoneyBox(category, amount))
         notifyObserver()
@@ -22,6 +27,7 @@ class Savings() : Subject {
     fun takeMoneyFromMoneyBox(number: Int, amount: Double) {
         try {
             this.moneyBoxes[(number - 1)].takeMoney(amount)
+            println("Money was taken from the box.")
             notifyObserver()
         } catch (e: IndexOutOfBoundsException) {
             println("This money box does not exist.")

@@ -6,9 +6,9 @@ import java.util.*
 import kotlin.math.round
 
 class SavingHandler(
-    var savings: Savings = Savings(),
+    var savings: Savings = Savings.instance,
     var scan: Scanner = Scanner(System.`in`),
-    val savingDisplay: SavingDisplay = SavingDisplay(savings)
+    private val savingDisplay: SavingDisplay = SavingDisplay(savings)
 ) {
 
     fun showAllSavingsOptions() {

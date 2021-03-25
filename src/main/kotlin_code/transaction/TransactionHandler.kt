@@ -1,5 +1,6 @@
 package kotlin_code.transaction
 
+import kotlin_code.savings.Savings
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
@@ -23,24 +24,24 @@ class TransactionHandler {
     private val scan = Scanner(System.`in`)
 
     fun showAllTransactionOptions() {
-        while(true) {
+        while (true) {
             printTransactionMenu()
             val option = scan.nextLine().trim().toInt()
 
             validDateTime = false
 
             //Option 1: Create new transaction
-            if(option == 1) {
+            if (option == 1) {
                 if (addTransaction()) break
             }
 
             //Option 2: Remove a transaction
-            else if(option == 2) {
+            else if (option == 2) {
                 removeTransaction()
             }
 
             //Option 3: Read a transaction by id
-            else if(option == 3) {
+            else if (option == 3) {
                 listTransaction()
             }
 
@@ -166,6 +167,39 @@ class TransactionHandler {
             return true
         }
 
+        val savings = Savings.instance
+        if (savings.getMoneyBoxes().size > 0) {
+            while (true) {
+                println("Do you want to add this transaction to a saving box? Type 'y' or 'n'")
+                // Get user input
+                val categoryInput = scan.nextLine().trim().toLowerCase()
+                if (categoryInput == "y") {
+
+                    println("Enter the number of the box to add the transaction to.")
+                    var counter = 1
+                    savings.getMoneyBoxes().forEach() {
+                        println("$counter. ${it.getCategory()}: €${it.getAmount()}")
+                        counter++
+                    }
+
+                    try {
+                        var moneyBoxNumber = scan.nextLine().trim().toInt()
+                        savings.takeMoneyFromMoneyBox(moneyBoxNumber, transactionAmount)
+
+
+                    } catch (e: Exception) {
+                        println("An error occured.")
+                    }
+
+                    break
+                }
+                else if(categoryInput == "n"){
+                    break
+                }
+                println("This is not a valid option. Try again.")
+
+            }
+        }
         try {
             // Add transactionProxy which includes a transaction
             transactionInfoProxies.add(TransactionInfoProxy(transactionDateTime, transactionAmount, descriptionInput))
@@ -194,9 +228,9 @@ class TransactionHandler {
     private fun printTransactionMenu() {
         println("Options:")
         println("===============")
-        println("1. Create new transaction")
+        println("1. Add transaction")
         println("2. Remove transaction")
-        println("3. Read transaction")
+        println("3. Read transaction by ID")
         println("4. List all transactions")
         println("5. Go back")
     }

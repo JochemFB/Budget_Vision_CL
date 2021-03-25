@@ -44,9 +44,9 @@ fun main(args: Array<String>) {
 private fun printMenu() {
     println("Main Menu:")
     println("--------------")
-    println("1. Show transactions")
-    println("2. Show checks")
-    println("3. Alter savings")
+    println("1. Transactions")
+    println("2. Checks")
+    println("3. Savings")
     println("4. Pub Crawl")
     println("--------------")
     println("Enter your choice:")

@@ -61,6 +61,8 @@ class CheckHandler {
 
     fun addItemToCheck() {
 
+        if (checkList.isEmpty()) return
+
         println("Which check do you want to edit?")
         println("Enter the check number.")
         println("Enter 0 to cancel...")
@@ -107,6 +109,7 @@ class CheckHandler {
     }
 
     fun removeCheck() {
+        if (checkList.isEmpty()) return
         println("Which check do you want to remove?")
         println("Press 0 to cancel removing...")
 
@@ -127,6 +130,9 @@ class CheckHandler {
         }
     }
 
+    /**
+     * Returns a ordened list with all the check names
+     */
     fun showAllChecks() {
         if (checkList.size == 0) {
             println("There are currently no checks.")
@@ -138,7 +144,6 @@ class CheckHandler {
                 println("$counter. ${it.getTitle()}")
                 counter++
             }
-            println("\n")
         }
     }
 
@@ -147,7 +152,7 @@ class CheckHandler {
         println("===============")
         println("1. Create new check")
         println("2. Remove check")
-        println("3. Edit check")
+        println("3. Add item to check")
         println("4. Display check")
         println("5. Go back")
     }
@@ -156,6 +161,10 @@ class CheckHandler {
      * Betaal en verwijder de check en krijg een overzicht
      */
     fun displayCheck() {
+
+        if(checkList.isEmpty()){
+            return
+        }
 
         println("Which check do you want to display?")
 
