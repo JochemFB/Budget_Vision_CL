@@ -9,6 +9,9 @@ class CheckHandler {
     var checkList = ArrayList<Payable>()
     val scan = Scanner(System.`in`)
 
+    /**
+     * Vang de keuze af in het menu
+     */
     fun showAllCheckOptions() {
 
         while (true) {
@@ -59,7 +62,7 @@ class CheckHandler {
     }
 
 
-    fun addItemToCheck() {
+    private fun addItemToCheck() {
 
         if (checkList.isEmpty()) return
 
@@ -102,13 +105,13 @@ class CheckHandler {
         }
     }
 
-    fun printAddableItemsList() {
+    private fun printAddableItemsList() {
         println("1. Wine")
         println("2. Beer")
         println("3. Soda")
     }
 
-    fun removeCheck() {
+    private fun removeCheck() {
         if (checkList.isEmpty()) return
         println("Which check do you want to remove?")
         println("Press 0 to cancel removing...")
@@ -133,7 +136,7 @@ class CheckHandler {
     /**
      * Returns a ordened list with all the check names
      */
-    fun showAllChecks() {
+    private fun showAllChecks() {
         if (checkList.size == 0) {
             println("There are currently no checks.")
         }
@@ -147,7 +150,7 @@ class CheckHandler {
         }
     }
 
-    fun printCheckMenu() {
+    private fun printCheckMenu() {
         println("Options:")
         println("===============")
         println("1. Create new check")
@@ -160,7 +163,7 @@ class CheckHandler {
     /**
      * Betaal en verwijder de check en krijg een overzicht
      */
-    fun displayCheck() {
+    private fun displayCheck() {
 
         if(checkList.isEmpty()){
             return

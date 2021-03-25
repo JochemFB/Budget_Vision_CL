@@ -136,7 +136,7 @@ class SavingHandler(
     }
 
 
-    fun printSavingsMenu() {
+    private fun printSavingsMenu() {
         println("Options:")
         println("===============")
         println("1. Show saving categories")
