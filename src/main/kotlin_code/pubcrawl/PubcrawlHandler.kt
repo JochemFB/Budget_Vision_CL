@@ -9,9 +9,6 @@ import java.util.*
 import kotlin.collections.ArrayList
 import java.time.format.DateTimeFormatter
 
-
-
-
 class PubcrawlHandler {
 
     var pubcrawlList = ArrayList<PubCrawl>()
@@ -47,11 +44,11 @@ class PubcrawlHandler {
 
                 showAllPubcrawls()
 
-                println("Enter pubcrawl name to edit:")
-                val pubcrawlname = scan.nextLine().toString()
+                println("Enter pubcrawl number to edit:")
+                val pubcrawlNumber = scan.nextLine().trim().toInt()
 
                 //gets the selected pubcrawl from the pubcrawlList
-                val pubcrawl = getPubcrawl(pubcrawlname, pubcrawlList)
+                val pubcrawl = pubcrawlList[pubcrawlNumber]
 
                 showPubcrawlVenues(pubcrawl)
 
@@ -73,8 +70,18 @@ class PubcrawlHandler {
                 printMainMenu()
 
             }
+            //0ption 4 remove an existing pubcrawl
+            else if(option == 4){
+                showAllPubcrawls()
+
+                println("Enter pubcrawl number to remove:")
+                val pubcrawlNumber = scan.nextLine().trim().toInt()
+
+                //gets the selected pubcrawl from the pubcrawlList
+                pubcrawlList.remove(pubcrawlList[pubcrawlNumber])
+            }
             //Option 5: Go back to the main menu
-            else if (option == 4) {
+            else if (option == 5) {
                 break
             } else {
                 println("This is not an option.")
@@ -88,7 +95,8 @@ class PubcrawlHandler {
         println("1. Show all pubcrawls");
         println("2. Make new pubcrawl");
         println("3. edit venues of existing pubcrawl and make reservations")
-        println("4. go back to main menu")
+        println("4. remove an existing pubcrawl")
+        println("5. go back to main menu")
         println("--------------");
         println("Enter your choice:");
     }
@@ -97,13 +105,16 @@ class PubcrawlHandler {
         println("--------------")
         println("pubcrawls:")
         println("--------------")
-        for(pubcrawl in pubcrawlList)
-        {
-            println(pubcrawl.name)
-        }
         if(pubcrawlList.isEmpty()){
             println("There are no pubcrawls")
+        }else {
+            var i = 1;
+            for (pubcrawl in pubcrawlList) {
+                println(i.toString() + ". " + pubcrawl.name)
+                i++
+            }
         }
+
         println("--------------")
     }
 
@@ -115,8 +126,10 @@ class PubcrawlHandler {
         if(venues.isEmpty()){
             println("there are no venues")
         }else{
+            var i = 1;
             for (venue in venues) {
-                println(venue.name)
+                println(i.toString() + ". " + venue.name)
+                i++
             }
         }
         println("--------------")
@@ -166,10 +179,10 @@ class PubcrawlHandler {
     fun removeVenue(pubCrawl: PubCrawl){
         showPubcrawlVenues(pubCrawl)
 
-        println("enter the name of the venue you want to remove")
-        val venueName = scan.nextLine()
+        println("enter the number of the venue you want to remove")
+        val venueNumber = scan.nextLine().trim().toInt()
 
-        pubCrawl.removeVenue(getVenue(venueName, pubCrawl))
+        pubCrawl.removeVenue(pubCrawl.venues[venueNumber])
     }
 
     fun makeReservation(pubCrawl: PubCrawl){
