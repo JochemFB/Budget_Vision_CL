@@ -1,10 +1,10 @@
 package kotlin_code.pubcrawl
 
-import java.lang.StrictMath.floor
 import java.time.LocalDateTime
 
-class PubCrawl(override val name: String, val pubcrawlStartTime: LocalDateTime) :Venue {
+class PubCrawl(override val name: String) :Venue {
 
+    override var startTime: LocalDateTime = LocalDateTime.now()
     override var reservationPeriod = "0"
 
     var venues = ArrayList<Venue>()
@@ -22,18 +22,16 @@ class PubCrawl(override val name: String, val pubcrawlStartTime: LocalDateTime) 
     }
 
     override fun makereservations(StartTime: LocalDateTime) {
-        //TODO: werkent maken
+        startTime = StartTime
         var totalTime = 0
-        var minutes = 0
+        var minutes: Int
         for (venue in venues){
             venue.makereservations(StartTime)
-            // HH:mm
-            val time = venue.reservationPeriod.split(":")
-            minutes = time[0].toInt() * 60 + time[1].toInt()
+            // mm
+            minutes = venue.reservationPeriod.toInt()
             StartTime.plusMinutes(minutes.toLong())
             totalTime += minutes
         }
-        val Hours = floor((minutes / 60).toDouble())
-        reservationPeriod = Hours.toString() + ":" + (minutes - Hours).toString()
+        reservationPeriod = totalTime.toString()
     }
 }

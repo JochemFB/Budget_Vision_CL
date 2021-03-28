@@ -4,7 +4,7 @@ import java.time.LocalDateTime
 
 class Restaurant(override var reservationPeriod: String, override val name: String): Venue {
 
-    lateinit var startTime: LocalDateTime
+    override var startTime: LocalDateTime = LocalDateTime.now()
 
     override fun makereservations(StartTime: LocalDateTime) {
         startTime = StartTime

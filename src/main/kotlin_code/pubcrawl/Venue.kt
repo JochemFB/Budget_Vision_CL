@@ -4,6 +4,7 @@ import java.time.LocalDateTime
 
 interface Venue {
 
+    var startTime: LocalDateTime
     var reservationPeriod: String
     val name: String
 

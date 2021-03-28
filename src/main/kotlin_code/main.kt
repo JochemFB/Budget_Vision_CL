@@ -5,16 +5,16 @@ import java.util.*
 
 fun main(args: Array<String>) {
 
-    println("Main Menu:");
-    println("--------------");
-    println("1. Show transactions");
-    println("2. Make check");
-    println("3. Alter savings");
-    println("4. Pub Crawl");
-    println("--------------");
-    println("Enter your choice:");
-
     while (true) {
+
+        println("Main Menu:");
+        println("--------------");
+        println("1. Show transactions");
+        println("2. Make check");
+        println("3. Alter savings");
+        println("4. Pub Crawl");
+        println("--------------");
+        println("Enter your choice:");
 
         val scan = Scanner(System.`in`)
 
