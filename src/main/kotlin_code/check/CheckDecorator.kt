@@ -9,6 +9,7 @@ abstract class CheckDecorator(val tempPayable: Payable) : Payable {
     override fun getDescription(): String {
         return tempPayable.getDescription()
     }
+
     override fun getTitle(): String {
         return ""
     }

@@ -225,3 +225,9 @@ distTmp/
 outTmp/
 /test.output
 /kotlin-native/dist
+lib/kotlin-reflect.jar
+lib/kotlin-stdlib-jdk7.jar
+lib/kotlin-stdlib-jdk8.jar
+lib/kotlin-stdlib.jar
+lib/kotlin-test.jar
+.idea/misc.xml

@@ -5,6 +5,8 @@ class Savings() : Subject {
     var observers = ArrayList<Observer>()
     private var moneyBoxes = ArrayList<MoneyBox>()
 
+    //Savings is een Singleton
+    //Companion objects zijn een natuurlijke Singleton in Kotlin
     companion object{
         val instance = Savings()
     }
@@ -24,6 +26,9 @@ class Savings() : Subject {
         }
     }
 
+    /**
+     * Haal geld uit de spaarpot als deze bestaat.
+     */
     fun takeMoneyFromMoneyBox(number: Int, amount: Double) {
         try {
             this.moneyBoxes[(number - 1)].takeMoney(amount)

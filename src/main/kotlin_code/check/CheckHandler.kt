@@ -10,7 +10,7 @@ class CheckHandler {
     val scan = Scanner(System.`in`)
 
     /**
-     * Vang de keuze af in het menu
+     * Toon het menu met alle check acties
      */
     fun showAllCheckOptions() {
 
@@ -28,8 +28,7 @@ class CheckHandler {
                 if (checkList.size == 0) {
                     println("There are no checks to remove.")
                     continue
-                }
-                else {
+                } else {
                     removeCheck()
                 }
             }
@@ -50,6 +49,9 @@ class CheckHandler {
         }
     }
 
+    /**
+     * Maak en benoem een nieuwe check
+     */
     private fun createNewCheck() {
         try {
             println("Enter the title of the check:")
@@ -61,7 +63,9 @@ class CheckHandler {
         }
     }
 
-
+    /**
+     * Voeg een item toe aan een check
+     */
     private fun addItemToCheck() {
 
         if (checkList.isEmpty()) return
@@ -105,12 +109,18 @@ class CheckHandler {
         }
     }
 
+    /**
+     * Print alle items die op een check geplaatst kunnen worden
+     */
     private fun printAddableItemsList() {
         println("1. Wine")
         println("2. Beer")
         println("3. Soda")
     }
 
+    /**
+     * Verwijder een check
+     */
     private fun removeCheck() {
         if (checkList.isEmpty()) return
         println("Which check do you want to remove?")
@@ -150,6 +160,9 @@ class CheckHandler {
         }
     }
 
+    /**
+     * Print het menu van alle Check handelingen
+     */
     private fun printCheckMenu() {
         println("Options:")
         println("===============")
@@ -158,27 +171,41 @@ class CheckHandler {
         println("3. Add item to check")
         println("4. Display check")
         println("5. Go back")
+        println("===============")
+        println("Enter your choice:")
     }
 
     /**
-     * Betaal en verwijder de check en krijg een overzicht
+     * Print een overzicht van alle items op de check en hun prijs en beschrijving
      */
     private fun displayCheck() {
 
-        if(checkList.isEmpty()){
+        if (checkList.isEmpty()) {
+            println("There are no checks.")
             return
         }
 
         println("Which check do you want to display?")
 
-        val checkToDisplay = scan.nextLine().trim().toInt()
-        //TODO: Checks inbouwen voor checknumber
-        var index = checkToDisplay - 1
-        val check = (checkList[index])
+        while (true) {
+            try {
+                val checkToDisplay = scan.nextLine().trim().toInt()
+                if (checkToDisplay <= checkList.size && checkToDisplay > 0) {
 
-        println("Overview of check")
-        println(check.getDescription())
-        println("Total: ${check.getCost()}")
+                    val index = checkToDisplay - 1
+                    val check = (checkList[index])
+
+                    println("Overview of check")
+                    println(check.getDescription())
+                    val total = String.format("%.2f", check.getCost())
+                    println("Total: €$total")
+                }
+                else{
+                    println("This check does not exit. Try again.")
+                }
+            } catch (e: Exception) {
+                println("Something went wrong. Try again")
+            }
+        }
     }
-
 }

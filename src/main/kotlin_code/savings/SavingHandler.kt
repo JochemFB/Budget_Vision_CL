@@ -1,6 +1,5 @@
 package kotlin_code.savings
 
-import kotlin_code.check.Check
 import java.lang.Exception
 import java.util.*
 import kotlin.math.round
@@ -10,7 +9,9 @@ class SavingHandler(
     var scan: Scanner = Scanner(System.`in`),
     private val savingDisplay: SavingDisplay = SavingDisplay(savings)
 ) {
-
+    /**
+     * Toon alle opties m.b.t. spaarpotjes
+     */
     fun showAllSavingsOptions() {
         while (true) {
             printSavingsMenu()
@@ -41,14 +42,20 @@ class SavingHandler(
         }
     }
 
+    /**
+     * Laat alle categorie spaarpotjes zien.
+     */
     private fun showCategories() {
-        savingDisplay.display()
+        displaySavings()
         println("Press enter to return.")
         while (true) {
             if (scan.nextLine() != null) break
         }
     }
 
+    /**
+     * Voeg een spaarpot categorie toe
+     */
     private fun addCategory() {
         try {
             println("Enter the name of the category:")
@@ -65,12 +72,15 @@ class SavingHandler(
         }
     }
 
+    /**
+     * Stop geld in een spaarpotje
+     */
     private fun addMoney() {
         if (!savingDisplay.hasNoMoneyBoxes()) {
 
             try {
                 println("To which box do you want to add money? press 0 to cancel")
-                savingDisplay.display()
+                displaySavings()
                 val categoryNumber = scan.nextLine().trim().toInt()
                 if (categoryNumber == 0) {
                     return
@@ -100,12 +110,15 @@ class SavingHandler(
         }
     }
 
+    /**
+     * Haal geld uit een spaarpotje
+     */
     private fun withdrawMoney() {
         if (!savingDisplay.hasNoMoneyBoxes()) {
 
             try {
                 println("From which box do you want to withdraw money? press 0 to cancel")
-                savingDisplay.display()
+                displaySavings()
                 val categoryNumber = scan.nextLine().trim().toInt()
                 if (categoryNumber == 0) {
                     return
@@ -135,6 +148,12 @@ class SavingHandler(
         }
     }
 
+    /**
+     * Toon alle spaarpotjes
+     */
+    fun displaySavings(){
+        savingDisplay.display()
+    }
 
     private fun printSavingsMenu() {
         println("Options:")
@@ -144,5 +163,6 @@ class SavingHandler(
         println("3. Add money")
         println("4. Withdraw money")
         println("5. Go back")
+        println("Enter your choice:")
     }
 }

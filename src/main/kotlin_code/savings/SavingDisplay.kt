@@ -13,10 +13,16 @@ class SavingDisplay(var saving: Savings) : Observer, Display {
         return this.moneyBoxes.isEmpty()
     }
 
+    /**
+     * Update de moneyboxes naar de huidge staat.
+     */
     override fun update(amount: ArrayList<Observer>) {
         this.moneyBoxes = saving.getMoneyBoxes()
     }
 
+    /**
+     * Toon alle moneyboxes en het bedrag dat erin zit
+     */
     override fun display() {
 
             if (saving.getMoneyBoxes().isEmpty()) {
