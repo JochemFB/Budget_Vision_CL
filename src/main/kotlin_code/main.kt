@@ -1,9 +1,12 @@
+import kotlin_code.check.CheckHandler
 import kotlin_code.pubcrawl.PubcrawlHandler
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.util.*
 
 fun main(args: Array<String>) {
+
+    val pubcrawlHandler = PubcrawlHandler()
 
     while (true) {
 
@@ -27,7 +30,7 @@ fun main(args: Array<String>) {
         } else if (option == 3) {
             println("Button 3 pressed");
         } else if (option == 4) {
-            PubcrawlHandler().showAllOptions()
+            pubcrawlHandler.showAllOptions()
         } else{
             println("This is not an option.")
         }

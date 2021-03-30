@@ -8,5 +8,5 @@ interface Venue {
     var reservationPeriod: String
     val name: String
 
-    fun makereservations(StartTime: LocalDateTime)
+    fun makeReservations(startTime: LocalDateTime)
 }

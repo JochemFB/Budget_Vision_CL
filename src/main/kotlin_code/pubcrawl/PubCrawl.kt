@@ -1,6 +1,7 @@
 package kotlin_code.pubcrawl
 
 import java.time.LocalDateTime
+import kotlin.math.min
 
 class PubCrawl(override val name: String) :Venue {
 
@@ -21,16 +22,16 @@ class PubCrawl(override val name: String) :Venue {
         return venues
     }
 
-    override fun makereservations(StartTime: LocalDateTime) {
-        startTime = StartTime
+    override fun makeReservations(startTime: LocalDateTime) {
+        this.startTime = startTime
+        var venueStartTime = startTime
         var totalTime = 0
-        var minutes: Int
+        var minutes: Long
         for (venue in venues){
-            venue.makereservations(StartTime)
-            // mm
-            minutes = venue.reservationPeriod.toInt()
-            StartTime.plusMinutes(minutes.toLong())
-            totalTime += minutes
+            venue.makeReservations(venueStartTime)
+            minutes = venue.reservationPeriod.toLong()
+            venueStartTime = venueStartTime.plusMinutes(minutes)
+            totalTime += minutes.toInt()
         }
         reservationPeriod = totalTime.toString()
     }

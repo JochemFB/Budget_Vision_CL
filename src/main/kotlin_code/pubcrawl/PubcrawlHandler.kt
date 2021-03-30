@@ -15,7 +15,7 @@ class PubcrawlHandler {
 
     private val scan = Scanner(System.`in`)
 
-    fun showAllOptions():Boolean {
+    fun showAllOptions() {
 
         printMainMenu()
 
@@ -24,71 +24,41 @@ class PubcrawlHandler {
 
             //Option 1: Show pubcrawls
             if (option == 1) {
-
                 showAllPubcrawls()
-
-                printMainMenu()
-
             }
+
             //Option 2: Create new pubcrawl
             else if (option == 2) {
-                println("Enter pub crawl name:")
-                val pubcrawlname = scan.nextLine().toString()
-                pubcrawlList.add(PubCrawl(pubcrawlname))
-
-                printMainMenu()
-
+                createPubcrawl()
             }
+
             //option 3 edit a pubcrawl
             else if (option == 3) {
-
-                showAllPubcrawls()
-
-                println("Enter pubcrawl number to edit:")
-                val pubcrawlNumber = scan.nextLine().trim().toInt()
-
-                //gets the selected pubcrawl from the pubcrawlList
-                val pubcrawl = pubcrawlList[pubcrawlNumber - 1]
-
-                showPubcrawlVenues(pubcrawl)
-
-                println("choose what you want to do")
-                println("1. add a venue")
-                println("2. remove a venue")
-                println("3. make reservations")
-
-                when (scan.nextLine().trim().toInt()) {
-                    1 -> {
-                        addvenue(pubcrawl)
-                    }
-                    2 -> {
-                        removeVenue(pubcrawl)
-                    }
-                    3 -> {
-                        makeReservation(pubcrawl)
-                    }
-                }
-
-                printMainMenu()
-
+                editPubcrawl()
             }
+
             //0ption 4 remove an existing pubcrawl
             else if(option == 4){
+                removePubcrawl()
+            }
+
+            else if(option == 5){
+
                 showAllPubcrawls()
 
-                println("Enter pubcrawl number to remove:")
+                println("Enter pubcrawl number to see venues")
                 val pubcrawlNumber = scan.nextLine().trim().toInt()
 
-                //gets the selected pubcrawl from the pubcrawlList
-                pubcrawlList.remove(pubcrawlList[pubcrawlNumber])
+                showPubcrawlVenues(pubcrawlList[pubcrawlNumber - 1])
             }
             //Option 5: Go back to the main menu
-            else if (option == 5) {
-                return true
+            else if (option == 6) {
+                break
             } else {
                 println("This is not an option.")
-                return true
+                break
             }
+            printMainMenu()
         }
     }
 
@@ -99,7 +69,8 @@ class PubcrawlHandler {
         println("2. Make new pubcrawl")
         println("3. edit venues of existing pubcrawl and make reservations")
         println("4. remove an existing pubcrawl")
-        println("5. go back to main menu")
+        println("5. show all venues from a pubcrawl")
+        println("6. go back to main menu")
         println("--------------")
         println("Enter your choice:")
     }
@@ -139,7 +110,7 @@ class PubcrawlHandler {
             for (venue in venues) {
                 println(i.toString() + ". " + venue.name + " (with a reservationperiod of: " + venue.reservationPeriod + ")")
                 if(pubCrawl.reservationPeriod.toInt() > 0){
-                    pubCrawl.makereservations(pubCrawl.startTime)
+                    pubCrawl.makeReservations(pubCrawl.startTime)
                     println("StartTime: " + venue.startTime.toString())
                 }
                 i++
@@ -148,15 +119,23 @@ class PubcrawlHandler {
         println("--------------")
     }
 
-    private fun addvenue(pubCrawl: PubCrawl): Boolean{
+    private fun addvenue(pubCrawl: PubCrawl){
         println("choose a venue")
         println("1. Restaurant")
         println("2. Cafe")
         println("3. Bar")
         println("4. Cancel")
-        val venuetype = scan.nextLine().trim().toInt()
-        if (venuetype > 3 || venuetype < 1) {
-            return true
+        var venuetype = -1
+        while (venuetype > 3 || venuetype < 1) {
+            venuetype = scan.nextLine().trim().toInt()
+            if(venuetype == 4){
+                break
+            }else if(venuetype > 4 || venuetype < 1){
+                println("this is not an option")
+            }
+        }
+        if(venuetype == 4){
+            return
         }
         println("enter how long you want to stay at the venue in minutes")
         val time = scan.nextLine().toString()
@@ -174,22 +153,26 @@ class PubcrawlHandler {
                 pubCrawl.addVenue(Bar(time, venueName))
             }
         }
-        return true
+        return
     }
 
     private fun removeVenue(pubCrawl: PubCrawl){
         showPubcrawlVenues(pubCrawl)
 
-        println("enter the number of the venue you want to remove")
-        val venueNumber = scan.nextLine().trim().toInt()
+        if(pubcrawlList.size > 0){
+            println("enter the number of the venue you want to remove")
+            val venueNumber = scan.nextLine().trim().toInt()
 
-        pubCrawl.removeVenue(pubCrawl.venues[venueNumber - 1])
+            pubCrawl.removeVenue(pubCrawl.venues[venueNumber - 1])
 
-        //refresh the reservations
-        pubCrawl.makereservations(pubCrawl.startTime)
+            //refresh the reservations
+            pubCrawl.makeReservations(pubCrawl.startTime)
+        }else{
+            println("there are no venues yet")
+        }
     }
 
-    private fun makeReservation(pubCrawl: PubCrawl): Boolean{
+    private fun makeReservation(pubCrawl: PubCrawl){
 
         println("enter StartTime of pubcrawl")
         println("Date and time (d-M-yyyy HH:mm) (enter 0 to cancel):")
@@ -197,13 +180,13 @@ class PubcrawlHandler {
 
         if (dateInput == "0") {
             // Break out of loop to return to main menu
-            return true
+            return
         }
         while (!validDateTime) {
             // Check if dateInput is in the correct format (dd-MM-yyyy HH:mm)
             validDateTime = try {
                 val dateTime = LocalDateTime.parse(dateInput, dateTimeFormatter)
-                pubCrawl.makereservations(dateTime)
+                pubCrawl.makeReservations(dateTime)
                 true
             } catch (e: DateTimeParseException) {
                 println("The date is incorrect. Please try again (enter 0 to cancel).")
@@ -218,8 +201,72 @@ class PubcrawlHandler {
         }
         if (dateInput == "0") {
             // Break out of loop to return to main menu
-            return true
+            return
         }
-        return true
+        return
+    }
+
+    private fun editPubcrawl(){
+        showAllPubcrawls()
+
+        var pubcrawlNumber = -1
+
+        if(pubcrawlList.size < 1){
+            return
+        }
+
+        while(pubcrawlNumber <= pubcrawlList.size) {
+
+            println("Enter pubcrawl number to edit:")
+            println("Enter 0 to exit")
+            pubcrawlNumber = scan.nextLine().trim().toInt()
+
+            if (pubcrawlList.size < pubcrawlNumber) {
+                println("that number does not exist")
+            } else if (pubcrawlNumber == 0) {
+                break
+            }
+            //gets the selected pubcrawl from the pubcrawlList
+            val pubcrawl = pubcrawlList[pubcrawlNumber - 1]
+
+            showPubcrawlVenues(pubcrawl)
+
+            println("choose what you want to do")
+            println("1. add a venue")
+            println("2. remove a venue")
+            println("3. make reservations")
+
+            when (scan.nextLine().trim().toInt()) {
+                1 -> {
+                    addvenue(pubcrawl)
+                }
+                2 -> {
+                    removeVenue(pubcrawl)
+                }
+                3 -> {
+                    makeReservation(pubcrawl)
+                }
+                0 ->{
+                    break
+                }
+            }
+            break
+        }
+    }
+
+    private fun createPubcrawl(){
+        println("Enter pub crawl name:")
+        val pubcrawlname = scan.nextLine().toString()
+        pubcrawlList.add(PubCrawl(pubcrawlname))
+    }
+
+    private fun removePubcrawl(){
+        showAllPubcrawls()
+
+        println("Enter pubcrawl number to remove:")
+        val pubcrawlNumber = scan.nextLine().trim().toInt()
+
+        //gets the selected pubcrawl from the pubcrawlList
+        pubcrawlList.remove(pubcrawlList[pubcrawlNumber - 1])
     }
 }
