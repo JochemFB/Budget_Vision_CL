@@ -1,5 +1,4 @@
-
-package kotlin_code.check
+package main.kotlin_code.check
 
 class Soda(soda : Payable) : CheckDecorator(soda) {
 

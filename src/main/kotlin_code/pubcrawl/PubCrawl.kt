@@ -1,9 +1,8 @@
-package kotlin_code.pubcrawl
+package main.kotlin_code.pubcrawl
 
 import java.time.LocalDateTime
-import kotlin.math.min
 
-class PubCrawl(override val name: String) :Venue {
+class PubCrawl(override val name: String) : Venue {
 
     override var startTime: LocalDateTime = LocalDateTime.now()
     override var reservationPeriod = "0"

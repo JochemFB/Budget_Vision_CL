@@ -1,4 +1,4 @@
-package kotlin_code.transaction
+package main.kotlin_code.transaction
 
 import java.time.LocalDateTime
 

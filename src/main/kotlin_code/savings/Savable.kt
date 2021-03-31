@@ -1,6 +1,6 @@
-package kotlin_code.savings
+package main.kotlin_code.savings
 
-import kotlin_code.transaction.Transaction
+import main.kotlin_code.transaction.Transaction
 
 
 interface Savable {

@@ -1,6 +1,6 @@
-package kotlin_code.transaction
+package main.kotlin_code.transaction
 
-import kotlin_code.savings.Savings
+import main.kotlin_code.savings.Savings
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException

@@ -1,8 +1,9 @@
-package kotlin_code.savings
+package main.kotlin_code.savings
 
-import kotlin_code.transaction.Transaction
+import main.kotlin_code.transaction.Transaction
 
-class MoneyBox(private val savingsCategory: String, private var amount: Double, override var transactionList: ArrayList<Transaction> = ArrayList()) : Savable {
+class MoneyBox(private val savingsCategory: String, private var amount: Double, override var transactionList: ArrayList<Transaction> = ArrayList()) :
+    Savable {
 
     override fun addMoney(money: Double) {
         this.amount += money

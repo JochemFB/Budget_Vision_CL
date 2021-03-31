@@ -1,4 +1,4 @@
-package kotlin_code.transaction
+package main.kotlin_code.transaction
 
 interface Transaction {
     fun getDateTime(): String

@@ -1,4 +1,4 @@
-package kotlin_code.check
+package main.kotlin_code.check
 
 interface Payable {
 

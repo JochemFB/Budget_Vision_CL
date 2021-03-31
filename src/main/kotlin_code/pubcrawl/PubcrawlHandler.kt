@@ -1,4 +1,4 @@
-package kotlin_code.pubcrawl
+package main.kotlin_code.pubcrawl
 
 import java.time.LocalDateTime
 import java.util.*
@@ -11,7 +11,7 @@ class PubcrawlHandler {
     private var pubcrawlList = ArrayList<PubCrawl>()
     private var validDateTime = false
 
-    val dateTimeFormatter = DateTimeFormatter.ofPattern("d-M-yyyy HH:mm")
+    private val dateTimeFormatter = DateTimeFormatter.ofPattern("d-M-yyyy HH:mm")
 
     private val scan = Scanner(System.`in`)
 
@@ -44,7 +44,7 @@ class PubcrawlHandler {
 
                 showAllPubcrawls()
 
-                if (pubcrawlList.size == 0){
+                if (pubcrawlList.size == 0) {
                     continue
                 }
 
@@ -53,8 +53,7 @@ class PubcrawlHandler {
 
                 if (pubcrawlNumber <= pubcrawlList.size && pubcrawlNumber > 0) {
                     showPubcrawlVenues(pubcrawlList[pubcrawlNumber - 1])
-                }
-                else{
+                } else {
                     println("This pubcrawl does not exist.")
                 }
             }
@@ -124,7 +123,7 @@ class PubcrawlHandler {
         println("--------------")
     }
 
-    private fun addvenue(pubCrawl: PubCrawl) {
+    private fun addVenue(pubCrawl: PubCrawl) {
         println("choose a venue")
         println("1. Restaurant")
         println("2. Cafe")
@@ -244,7 +243,7 @@ class PubcrawlHandler {
 
             when (scan.nextLine().trim().toInt()) {
                 1 -> {
-                    addvenue(pubcrawl)
+                    addVenue(pubcrawl)
                 }
                 2 -> {
                     removeVenue(pubcrawl)

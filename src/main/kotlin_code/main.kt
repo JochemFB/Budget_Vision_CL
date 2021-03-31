@@ -1,14 +1,15 @@
-import kotlin_code.check.CheckHandler
-import kotlin_code.savings.SavingHandler
-import kotlin_code.savings.Savings
-import kotlin_code.transaction.TransactionHandler
+import main.kotlin_code.check.CheckHandler
+import main.kotlin_code.pubcrawl.PubcrawlHandler
+import main.kotlin_code.savings.SavingHandler
+import main.kotlin_code.transaction.TransactionHandler
 import java.util.*
 
-fun main(args: Array<String>) {
+fun main() {
 
     val transaction = TransactionHandler()
     val checkHandler = CheckHandler()
     val savings = SavingHandler()
+    val pubcrawl = PubcrawlHandler()
 
     while (true) {
         printMenu()
@@ -27,14 +28,13 @@ fun main(args: Array<String>) {
                     savings.showAllSavingsOptions()
                 }
                 4 -> {
-                    println("Button 4 pressed")
+                    pubcrawl.showAllOptions()
                 }
                 else -> {
                     println("This is not an option.")
                 }
             }
-        }
-        catch (e : NumberFormatException){
+        } catch (e: NumberFormatException) {
             println("Enter a valid number.")
             continue
         }

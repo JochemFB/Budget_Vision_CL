@@ -1,5 +1,4 @@
-
-package kotlin_code.check
+package main.kotlin_code.check
 
 class Wine(wine : Payable) : CheckDecorator(wine) {
 

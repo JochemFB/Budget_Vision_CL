@@ -1,4 +1,4 @@
-package kotlin_code.check
+package main.kotlin_code.check
 
 import java.lang.Exception
 import java.util.*

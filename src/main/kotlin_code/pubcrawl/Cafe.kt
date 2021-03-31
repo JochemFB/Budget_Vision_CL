@@ -1,4 +1,4 @@
-package kotlin_code.pubcrawl
+package main.kotlin_code.pubcrawl
 
 import java.time.LocalDateTime
 
