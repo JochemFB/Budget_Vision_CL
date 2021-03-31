@@ -74,6 +74,9 @@ class TransactionHandler {
      * List a single transaction
      */
     private fun listTransaction() {
+
+        listAllTransactions()
+
         println("Enter the id of the transaction which you want to read:")
         val transactionToRead = scan.nextLine().trim().toInt()
 
@@ -92,6 +95,9 @@ class TransactionHandler {
      * Remove a transaction based on id
      */
     private fun removeTransaction() {
+
+        listAllTransactions()
+
         if (transactionInfoProxies.size == 0) {
             println("There are no transactions to remove.")
             return
@@ -147,12 +153,12 @@ class TransactionHandler {
 
         println("Amount (enter 0 to cancel):")
         // Get user input
-        var amountInput = scan.nextLine().trim()
+        val amountInput = scan.nextLine().trim()
         if (amountInput == "0") {
             // Break out of loop to return to main menu
             return true
         }
-        var transactionAmount = round(amountInput.replace(',', '.').toDouble() * 100) / 100
+        val transactionAmount = round(amountInput.replace(',', '.').toDouble() * 100) / 100
 
         println("Description (enter 0 to cancel):")
         // Get user input

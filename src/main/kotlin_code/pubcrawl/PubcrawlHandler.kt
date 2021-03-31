@@ -129,32 +129,26 @@ class PubcrawlHandler {
         println("2. Cafe")
         println("3. Bar")
         println("4. Cancel")
-        var venuetype = -1
-        while (venuetype > 3 || venuetype < 1) {
-            venuetype = scan.nextLine().trim().toInt()
-            if (venuetype == 4) {
-                break
-            } else if (venuetype > 4 || venuetype < 1) {
-                println("this is not an option")
-            }
-        }
-        if (venuetype == 4) {
+
+        val venuetype = scan.nextLine().trim()
+
+        if (venuetype.toInt() == 4 || venuetype.toInt() == 0) {
             return
         }
         println("enter how long you want to stay at the venue in minutes")
-        val time = scan.nextLine().toString()
+        val time = scan.nextLine().trim().toInt()
         println("enter the name of the venue")
         val venueName = scan.nextLine().toString()
 
-        when (venuetype) {
+        when (venuetype.toInt()) {
             1 -> {
-                pubCrawl.addVenue(Restaurant(time, venueName))
+                pubCrawl.addVenue(Restaurant(time.toString(), venueName))
             }
             2 -> {
-                pubCrawl.addVenue(Cafe(time, venueName))
+                pubCrawl.addVenue(Cafe(time.toString(), venueName))
             }
             3 -> {
-                pubCrawl.addVenue(Bar(time, venueName))
+                pubCrawl.addVenue(Bar(time.toString(), venueName))
             }
         }
         return
