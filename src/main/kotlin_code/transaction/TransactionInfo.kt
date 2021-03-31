@@ -3,7 +3,11 @@ package kotlin_code.transaction
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-class TransactionInfo(private val dateTime: LocalDateTime, private val amount: Double, private val description: String): Transaction {
+class TransactionInfo(
+    private val dateTime: LocalDateTime,
+    private val amount: Double,
+    private val description: String
+) : Transaction {
     private val dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")
 
     override fun getDateTime(): String {

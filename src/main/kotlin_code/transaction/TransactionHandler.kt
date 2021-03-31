@@ -8,21 +8,16 @@ import java.util.*
 import kotlin.math.round
 
 class TransactionHandler {
-    /*
-    TODO: Bij het intypen van quit of 0, ga terug naar main menu
-    TODO: Als de gebruiker 0 invuld bij een van de 'add transaction' velden. Moet de gebruiker dan terug naar het main menu of naar het menu van de transactions?
-    TODO: Transactions en spaarpotjes linken
-    TODO: date slashes or - and time optional
-     */
+    private lateinit var transactionDateTime: LocalDateTime
 
     private val transactionInfoProxies = ArrayList<TransactionInfoProxy>()
     private val dateTimeFormatter = DateTimeFormatter.ofPattern("d-M-yyyy HH:mm")
-
     private var validDateTime = false
-    private lateinit var transactionDateTime: LocalDateTime
-
     private val scan = Scanner(System.`in`)
 
+    /**
+     * List all menu items and wait for user input
+     */
     fun showAllTransactionOptions() {
         while (true) {
             printTransactionMenu()
@@ -185,15 +180,12 @@ class TransactionHandler {
                     try {
                         var moneyBoxNumber = scan.nextLine().trim().toInt()
                         savings.takeMoneyFromMoneyBox(moneyBoxNumber, transactionAmount)
-
-
                     } catch (e: Exception) {
                         println("An error occured.")
                     }
 
                     break
-                }
-                else if(categoryInput == "n"){
+                } else if (categoryInput == "n") {
                     break
                 }
                 println("This is not a valid option. Try again.")

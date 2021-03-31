@@ -2,7 +2,11 @@ package kotlin_code.transaction
 
 import java.time.LocalDateTime
 
-class TransactionInfoProxy(dateTime: LocalDateTime, amount: Double, description: String): Transaction {
+class TransactionInfoProxy(
+    dateTime: LocalDateTime,
+    amount: Double,
+    description: String
+) : Transaction {
     var transactionInfo: Transaction = TransactionInfo(dateTime, amount, description)
 
     override fun getDateTime(): String {
