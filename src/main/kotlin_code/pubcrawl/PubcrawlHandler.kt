@@ -112,13 +112,11 @@ class PubcrawlHandler {
             println("there are no venues")
         } else {
             var i = 1
-
-            //TODO FORMAT DATETIME TO HH:mm dd/MM/yyyy
             for (venue in venues) {
                 println(i.toString() + ". " + venue.name + " (with a reservationperiod of: " + venue.reservationPeriod + ")")
                 if (pubCrawl.reservationPeriod.toInt() > 0) {
                     pubCrawl.makeReservations(pubCrawl.startTime)
-                    println("StartTime: " + venue.startTime.toString())
+                    println("StartTime: " + venue.startTime.format(dateTimeFormatter))
                 }
                 i++
             }
