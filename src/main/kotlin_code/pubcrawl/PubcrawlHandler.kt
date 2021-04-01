@@ -20,49 +20,36 @@ class PubcrawlHandler {
             printMainMenu()
             val option = scan.nextLine().trim().toInt()
 
-            //Option 1: Show pubcrawls
-            if (option == 1) {
-                showAllPubcrawls()
-            }
 
-            //Option 2: Create new pubcrawl
-            else if (option == 2) {
-                createPubcrawl()
-            }
-
-            //option 3 edit a pubcrawl
-            else if (option == 3) {
-                editPubcrawl()
-            }
-
-            //0ption 4 remove an existing pubcrawl
-            else if (option == 4) {
-                removePubcrawl()
-            }
-            //0ption 5 Show all venues of a pubcrawl
-            else if (option == 5) {
-
-                showAllPubcrawls()
-
-                if (pubcrawlList.size == 0) {
-                    continue
+            when(option){
+                //Option 1: Show pubcrawls
+                1 -> {
+                    showAllPubcrawls()
                 }
-
-                println("Enter pubcrawl number to see venues")
-                val pubcrawlNumber = scan.nextLine().trim().toInt()
-
-                if (pubcrawlNumber <= pubcrawlList.size && pubcrawlNumber > 0) {
-                    showPubcrawlVenues(pubcrawlList[pubcrawlNumber - 1])
-                } else {
-                    println("This pubcrawl does not exist.")
+                //Option 2: Create new pubcrawl
+                2 -> {
+                    createPubcrawl()
                 }
-            }
-            //Option 6: Go back to the main menu
-            else if (option == 6) {
-                break
-            } else {
-                println("This is not an option.")
-                break
+                //option 3 edit a pubcrawl
+                3 -> {
+                    editPubcrawl()
+                }
+                //0ption 4 remove an existing pubcrawl
+                4 -> {
+                    removePubcrawl()
+                }
+                //0ption 5 Show all venues of a pubcrawl
+                5 -> {
+                    showOnePubcrawl()
+                }
+                //Option 6: Go back to the main menu
+                6 -> {
+                    break
+                }
+                else -> {
+                    println("This is not an option.")
+                    break
+                }
             }
         }
     }
@@ -171,7 +158,7 @@ class PubcrawlHandler {
     private fun removeVenue(pubCrawl: PubCrawl) {
         showPubcrawlVenues(pubCrawl)
 
-        if (pubcrawlList.size > 0) {
+        if (pubCrawl.venues.size > 0) {
             println("enter the number of the venue you want to remove")
             val venueNumber = scan.nextLine().trim().toInt()
 
@@ -289,10 +276,33 @@ class PubcrawlHandler {
     private fun removePubcrawl() {
         showAllPubcrawls()
 
-        println("Enter pubcrawl number to remove:")
+        if(pubcrawlList.size != 0){
+            println("Enter pubcrawl number to remove:")
+            val pubcrawlNumber = scan.nextLine().trim().toInt()
+
+            //gets the selected pubcrawl from the pubcrawlList
+            pubcrawlList.remove(pubcrawlList[pubcrawlNumber - 1])
+        }
+
+    }
+
+    /**
+     * laat 1 specifieke pubcrawl zien met de venues die daar bij horen
+     */
+    private fun showOnePubcrawl(){
+        showAllPubcrawls()
+
+        if (pubcrawlList.size == 0) {
+            return
+        }
+
+        println("Enter pubcrawl number to see venues")
         val pubcrawlNumber = scan.nextLine().trim().toInt()
 
-        //gets the selected pubcrawl from the pubcrawlList
-        pubcrawlList.remove(pubcrawlList[pubcrawlNumber - 1])
+        if (pubcrawlNumber <= pubcrawlList.size && pubcrawlNumber > 0) {
+            showPubcrawlVenues(pubcrawlList[pubcrawlNumber - 1])
+        } else {
+            println("This pubcrawl does not exist.")
+        }
     }
 }
