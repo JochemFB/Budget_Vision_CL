@@ -74,8 +74,10 @@ class TransactionHandler {
      * List a single transaction
      */
     private fun listTransaction() {
-
-        listAllTransactions()
+        if (transactionInfoProxies.size == 0) {
+            println("There are no transactions to list.")
+            return
+        }
 
         println("Enter the id of the transaction which you want to read:")
         val transactionToRead = scan.nextLine().trim().toInt()
