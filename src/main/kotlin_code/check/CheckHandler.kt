@@ -18,9 +18,6 @@ class CheckHandler {
             this.showAllChecks()
             this.printCheckMenu()
 
-                if (checkList.size == 0) {
-                    println("There are no checks to remove.")
-                    continue
             when (scan.nextLine().trim().toInt()) {
                 1 -> {
                     createNewCheck()
