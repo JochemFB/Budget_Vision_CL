@@ -67,6 +67,9 @@ class PubcrawlHandler {
         }
     }
 
+    /**
+     * functie voor het printen van de main menu
+     */
     private fun printMainMenu() {
         println("Pubcrawl:")
         println("--------------")
@@ -80,6 +83,9 @@ class PubcrawlHandler {
         println("Enter your choice:")
     }
 
+    /**
+     * functie die alle bestaande pubcrawls print. Hierbij word een nummer + de pubcrawl naam geprint
+     */
     private fun showAllPubcrawls() {
         println("--------------")
         println("pubcrawls:")
@@ -98,10 +104,12 @@ class PubcrawlHandler {
                 i++
             }
         }
-
         println("--------------")
     }
 
+    /**
+     * laat alle venues zien van een pubcrawl
+     */
     private fun showPubcrawlVenues(pubCrawl: PubCrawl) {
         val venues = pubCrawl.getvenues()
         println("--------------")
@@ -123,6 +131,9 @@ class PubcrawlHandler {
         println("--------------")
     }
 
+    /**
+     * toevoegen van een venue aan een pubcrawl
+     */
     private fun addVenue(pubCrawl: PubCrawl) {
         println("choose a venue")
         println("1. Restaurant")
@@ -154,6 +165,9 @@ class PubcrawlHandler {
         return
     }
 
+    /**
+     * verwijderen van een venue van een pubcrawl
+     */
     private fun removeVenue(pubCrawl: PubCrawl) {
         showPubcrawlVenues(pubCrawl)
 
@@ -170,6 +184,9 @@ class PubcrawlHandler {
         }
     }
 
+    /**
+     * maken van de reservations van alle venues die op dat moment aan de pubcrawl zijn toegevoegd
+     */
     private fun makeReservation(pubCrawl: PubCrawl) {
 
         println("enter StartTime of pubcrawl")
@@ -204,6 +221,10 @@ class PubcrawlHandler {
         return
     }
 
+    /**
+     * menu om een specifieke pubcrawl te editen
+     * word doorgestuurd naar een andere method voor het maken van reservations, toevoegen venue of om een venue te verwijderen
+     */
     private fun editPubcrawl() {
         showAllPubcrawls()
 
@@ -253,12 +274,18 @@ class PubcrawlHandler {
         }
     }
 
+    /**
+     * aanmaken van een nieuwe pubcrawl
+     */
     private fun createPubcrawl() {
         println("Enter pub crawl name:")
         val pubcrawlname = scan.nextLine().toString()
         pubcrawlList.add(PubCrawl(pubcrawlname))
     }
 
+    /**
+     * verwijderen van een bestaande pubcrawl
+     */
     private fun removePubcrawl() {
         showAllPubcrawls()
 

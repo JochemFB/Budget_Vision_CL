@@ -21,6 +21,9 @@ class PubCrawl(override val name: String) : Venue {
         return venues
     }
 
+    /**
+     * maken van reservations voor elke venue die in de pubcrawl zit + de startTijden bepalen en de totale tijd
+     */
     override fun makeReservations(startTime: LocalDateTime) {
         this.startTime = startTime
         var venueStartTime = startTime
