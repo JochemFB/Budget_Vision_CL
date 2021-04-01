@@ -17,34 +17,27 @@ class CheckHandler {
         while (true) {
             this.showAllChecks()
             this.printCheckMenu()
-            val option = scan.nextLine().trim().toInt()
 
-            //Option 1: Create a new check
-            if (option == 1) {
-                createNewCheck()
-            }
-            //Option 2: Remove a check
-            else if (option == 2) {
                 if (checkList.size == 0) {
                     println("There are no checks to remove.")
                     continue
-                } else {
+            when (scan.nextLine().trim().toInt()) {
+                1 -> {
+                    createNewCheck()
+                }
+                2 -> {
                     removeCheck()
                 }
-            }
-            //Option 3: Add item to a check
-            else if (option == 3) {
-                addItemToCheck()
-            }
-            //Option 4: display a check
-            else if (option == 4) {
-                displayCheck()
-            }
-            //Option 5: Go back to the main menu
-            else if (option == 5) {
-                break
-            } else {
-                println("This is not an option.")
+                3 -> {
+                    addItemToCheck()
+                }
+                4 -> {
+                    displayCheck()
+                }
+                5 -> break
+                else -> {
+                    println("This is not an option.")
+                }
             }
         }
     }
@@ -73,6 +66,7 @@ class CheckHandler {
         println("Which check do you want to edit?")
         println("Enter the check number.")
         println("Enter 0 to cancel...")
+        showAllChecks()
 
         val checkToEdit = scan.nextLine().trim().toInt()
 
@@ -113,18 +107,22 @@ class CheckHandler {
      * Print alle items die op een check geplaatst kunnen worden
      */
     private fun printAddableItemsList() {
-        println("1. Wine")
-        println("2. Beer")
-        println("3. Soda")
+        println("1. Wine - €4,00")
+        println("2. Beer - €2,00")
+        println("3. Soda - €1,50")
     }
 
     /**
      * Verwijder een check
      */
     private fun removeCheck() {
-        if (checkList.isEmpty()) return
+        if (checkList.isEmpty()){
+          return
+        }
+
         println("Which check do you want to remove?")
         println("Press 0 to cancel removing...")
+        showAllChecks()
 
         val checkToRemove = scan.nextLine().trim().toInt()
         if (checkToRemove == 0) {
@@ -158,6 +156,7 @@ class CheckHandler {
                 counter++
             }
         }
+        println("\n")
     }
 
     /**
@@ -181,12 +180,11 @@ class CheckHandler {
     private fun displayCheck() {
 
         if (checkList.isEmpty()) {
-            println("There are no checks.")
             return
         }
 
         println("Which check do you want to display?")
-
+        showAllChecks()
         while (true) {
             try {
                 val checkToDisplay = scan.nextLine().trim().toInt()
@@ -199,6 +197,7 @@ class CheckHandler {
                     println(check.getDescription())
                     val total = String.format("%.2f", check.getCost())
                     println("Total: €$total")
+                    break
                 }
                 else{
                     println("This check does not exit. Try again.")

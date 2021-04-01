@@ -7,7 +7,7 @@ import java.util.*
 fun main() {
 
     val transaction = TransactionHandler()
-    val checkHandler = CheckHandler()
+    val check = CheckHandler()
     val savings = SavingHandler()
     val pubcrawl = PubcrawlHandler()
 
@@ -22,13 +22,13 @@ fun main() {
                     transaction.showAllTransactionOptions()
                 }
                 2 -> {
-                    checkHandler.showAllCheckOptions()
+                    check.showAllCheckOptions()
                 }
                 3 -> {
                     savings.showAllSavingsOptions()
                 }
                 4 -> {
-                    pubcrawl.showAllOptions()
+                    pubcrawl.showAllPubcrawlOptions()
                 }
                 else -> {
                     println("This is not an option.")

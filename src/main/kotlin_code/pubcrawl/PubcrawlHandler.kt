@@ -15,7 +15,7 @@ class PubcrawlHandler {
 
     private val scan = Scanner(System.`in`)
 
-    fun showAllOptions() {
+    fun showAllPubcrawlOptions() {
         while (true) {
             printMainMenu()
             val option = scan.nextLine().trim().toInt()
