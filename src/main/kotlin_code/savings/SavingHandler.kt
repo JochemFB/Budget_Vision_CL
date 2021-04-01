@@ -47,10 +47,6 @@ class SavingHandler(
      */
     private fun showCategories() {
         displaySavings()
-        println("Press enter to return.")
-        while (true) {
-            if (scan.nextLine() != null) break
-        }
     }
 
     /**
@@ -144,7 +140,7 @@ class SavingHandler(
             }
         }
         else{
-            println("There are no boxes.")
+            println("There are no categories.")
         }
     }
 

@@ -30,7 +30,9 @@ class SavingDisplay(var saving: Savings) : Observer, Display {
             } else {
                 var counter = 1
                 saving.getMoneyBoxes().forEach() {
-                    println("$counter. ${it.getCategory()}: €${it.getAmount()}")
+
+
+                    println("$counter. ${it.getCategory()}: €" + String.format("%.2f", it.getAmount()))
                     counter++
                 }
             }
